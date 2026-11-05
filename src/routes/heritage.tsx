@@ -7,7 +7,7 @@ import { heritageGuide } from "@/lib/travel.functions";
 import { EmptyState, PageHeader, SourceBadge } from "@/components/destination-card";
 
 export const Route = createFileRoute("/heritage")({
-  validateSearch: (s: Record<string, unknown>): { id?: string } => ({ id: typeof s.id === "string" ? s.id : undefined }),
+  validateSearch: (s: Record<string, unknown>): { id?: string | undefined } => ({ id: typeof s["id"] === "string" ? s["id"] : undefined }),
   head: () => ({
     meta: [
       { title: "AI Heritage Guide — LocalLens AI" },

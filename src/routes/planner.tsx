@@ -31,10 +31,10 @@ function Planner() {
     e.preventDefault();
     const er: Record<string, string> = {};
     const budget = Number(form.budget), travellers = Number(form.travellers);
-    if (!form.city.trim()) er.city = "Enter a destination city.";
-    if (!form.budget || !Number.isFinite(budget) || budget < 0) er.budget = "Enter a valid budget in ₹.";
-    if (!Number.isInteger(travellers) || travellers < 1 || travellers > 50) er.travellers = "1 – 50 travellers.";
-    if (!form.interests.length) er.interests = "Pick at least one interest.";
+    if (!form.city.trim()) er["city"] = "Enter a destination city.";
+    if (!form.budget || !Number.isFinite(budget) || budget < 0) er["budget"] = "Enter a valid budget in ₹.";
+    if (!Number.isInteger(travellers) || travellers < 1 || travellers > 50) er["travellers"] = "1 – 50 travellers.";
+    if (!form.interests.length) er["interests"] = "Pick at least one interest.";
     setErrors(er);
     if (Object.keys(er).length) return;
     m.mutate({ city: form.city.trim(), budget, minutes: form.minutes, travellers, interests: form.interests });
@@ -46,17 +46,17 @@ function Planner() {
       <PageHeader eyebrow="Smart AI Trip Planner" title="Generate your journey" text="Tell us your time, budget and interests. Gemini AI builds a route from verified local places." />
       <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 lg:grid-cols-[380px_1fr]">
         <form onSubmit={submit} noValidate className="h-fit space-y-5 rounded-2xl border bg-card p-6 shadow-card lg:sticky lg:top-24">
-          <Field label="Destination city" error={errors.city}><input className="field" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></Field>
+          <Field label="Destination city" error={errors["city"]}><input className="field" value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} /></Field>
           <div className="grid grid-cols-2 gap-3">
-            <Field label="Budget (₹)" error={errors.budget}><input className="field" type="number" min={0} value={form.budget} onChange={(e) => setForm({ ...form, budget: e.target.value })} /></Field>
-            <Field label="Travellers" error={errors.travellers}><input className="field" type="number" min={1} max={50} value={form.travellers} onChange={(e) => setForm({ ...form, travellers: e.target.value })} /></Field>
+            <Field label="Budget (₹)" error={errors["budget"]}><input className="field" type="number" min={0} value={form.budget} onChange={(e) => setForm({ ...form, budget: e.target.value })} /></Field>
+            <Field label="Travellers" error={errors["travellers"]}><input className="field" type="number" min={1} max={50} value={form.travellers} onChange={(e) => setForm({ ...form, travellers: e.target.value })} /></Field>
           </div>
           <Field label="Available time">
             <div className="grid grid-cols-2 gap-2">
               {TIME_OPTIONS.map((t) => <button type="button" key={t.value} className="chip justify-center" data-active={form.minutes === t.value} onClick={() => setForm({ ...form, minutes: t.value })}>{t.label}</button>)}
             </div>
           </Field>
-          <Field label="Interests" error={errors.interests}>
+          <Field label="Interests" error={errors["interests"]}>
             <div className="flex flex-wrap gap-2">
               {INTERESTS.map((i) => <button type="button" key={i} className="chip capitalize" data-active={form.interests.includes(i)} onClick={() => toggle(i)}>{i}</button>)}
             </div>
@@ -77,7 +77,7 @@ function Planner() {
   );
 }
 
-function Field({ label, error, children }: { label: string; error?: string; children: React.ReactNode }) {
+function Field({ label, error, children }: { label: string; error?: string | undefined; children: React.ReactNode }) {
   return (
     <div>
       <p className="mb-1.5 text-sm font-semibold">{label}</p>

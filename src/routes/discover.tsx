@@ -6,20 +6,20 @@ import { INTERESTS } from "@/data/destinations";
 import { listDestinations } from "@/lib/travel.functions";
 import { DestinationCard, EmptyState, PageHeader } from "@/components/destination-card";
 
-type S = { city?: string; q?: string; cat?: string; hidden?: boolean };
+type S = { city?: string | undefined; q?: string | undefined; cat?: string | undefined; hidden?: boolean | undefined };
 
 const destQuery = (s: S) =>
   queryOptions({
     queryKey: ["destinations", s],
-    queryFn: () => listDestinations({ data: { city: s.city, query: s.q, interests: s.cat ? [s.cat] : [], hiddenOnly: s.hidden } }),
+    queryFn: () => listDestinations({ data: { city: s["city"], query: s["q"], interests: s["cat"] ? [s["cat"]] : [], hiddenOnly: s["hidden"] } }),
   });
 
 export const Route = createFileRoute("/discover")({
   validateSearch: (s: Record<string, unknown>): S => ({
-    city: typeof s.city === "string" ? s.city : "Panipat",
-    q: typeof s.q === "string" ? s.q : undefined,
-    cat: typeof s.cat === "string" ? s.cat : undefined,
-    hidden: s.hidden === true || s.hidden === "true" ? true : undefined,
+    city: typeof s["city"] === "string" ? s["city"] : "Panipat",
+    q: typeof s["q"] === "string" ? s["q"] : undefined,
+    cat: typeof s["cat"] === "string" ? s["cat"] : undefined,
+    hidden: s["hidden"] === true || s["hidden"] === "true" ? true : undefined,
   }),
   head: () => ({
     meta: [

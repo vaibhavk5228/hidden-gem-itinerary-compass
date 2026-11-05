@@ -8,7 +8,7 @@ import { EmptyState, PageHeader } from "@/components/destination-card";
 const CATS = ["all", "food", "market", "shopping", "handicraft", "culture"] as const;
 
 export const Route = createFileRoute("/experiences")({
-  validateSearch: (s: Record<string, unknown>): { cat?: string } => ({ cat: typeof s.cat === "string" ? s.cat : undefined }),
+  validateSearch: (s: Record<string, unknown>): { cat?: string | undefined } => ({ cat: typeof s["cat"] === "string" ? s["cat"] : undefined }),
   head: () => ({
     meta: [
       { title: "Local Experiences — LocalLens AI" },

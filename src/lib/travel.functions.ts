@@ -36,7 +36,7 @@ async function askGeminiJSON(system: string, user: string): Promise<unknown | nu
 }
 
 export const listDestinations = createServerFn({ method: "GET" })
-  .inputValidator((d: { city?: string; query?: string; interests?: string[]; hiddenOnly?: boolean }) => ({
+  .inputValidator((d: { city?: string | undefined; query?: string | undefined; interests?: string[]; hiddenOnly?: boolean | undefined }) => ({
     city: String(d?.city ?? "").slice(0, 80),
     query: String(d?.query ?? "").slice(0, 80),
     interests: Array.isArray(d?.interests) ? d.interests.map(String).slice(0, 10) : [],
