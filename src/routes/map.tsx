@@ -17,7 +17,7 @@ export const Route = createFileRoute("/map")({
 });
 
 function MapPage() {
-  const [sel, setSel] = useState(DESTINATIONS[0]);
+  const [sel, setSel] = useState(DESTINATIONS[0]!);
   return (
     <>
       <PageHeader eyebrow="Explore on Map" title="Find your way" text="Locations are looked up by name on Google Maps — we never invent coordinates." />

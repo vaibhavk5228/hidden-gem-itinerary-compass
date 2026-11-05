@@ -92,7 +92,7 @@ function Index() {
             <p className="mt-3 opacity-80">{EXPERIENCES.length} local experiences — handloom bazaars, Haryanvi meals and evening aarti.</p>
             <Link to="/experiences" className="btn btn-primary mt-6">Browse experiences <ArrowRight className="h-4 w-4" /></Link>
           </div>
-          <img src={EXPERIENCES[3].image} alt="Haryanvi food" loading="lazy" width={1024} height={768} className="h-full w-full object-cover" />
+          <img src={EXPERIENCES[3]!.image} alt="Haryanvi food" loading="lazy" width={1024} height={768} className="h-full w-full object-cover" />
         </div>
       </section>
     </>
