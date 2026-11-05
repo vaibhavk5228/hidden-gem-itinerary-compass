@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as DiscoverRouteImport } from './routes/discover'
+import { Route as ExperiencesRouteImport } from './routes/experiences'
+import { Route as HeritageRouteImport } from './routes/heritage'
+import { Route as MapRouteImport } from './routes/map'
+import { Route as PlannerRouteImport } from './routes/planner'
+import { Route as SavedRouteImport } from './routes/saved'
+import { Route as DestinationIdRouteImport } from './routes/destination.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DiscoverRoute = DiscoverRouteImport.update({
+  id: '/discover',
+  path: '/discover',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExperiencesRoute = ExperiencesRouteImport.update({
+  id: '/experiences',
+  path: '/experiences',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HeritageRoute = HeritageRouteImport.update({
+  id: '/heritage',
+  path: '/heritage',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MapRoute = MapRouteImport.update({
+  id: '/map',
+  path: '/map',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlannerRoute = PlannerRouteImport.update({
+  id: '/planner',
+  path: '/planner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SavedRoute = SavedRouteImport.update({
+  id: '/saved',
+  path: '/saved',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DestinationIdRoute = DestinationIdRouteImport.update({
+  id: '/destination/$id',
+  path: '/destination/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRoute
+  '/experiences': typeof ExperiencesRoute
+  '/heritage': typeof HeritageRoute
+  '/map': typeof MapRoute
+  '/planner': typeof PlannerRoute
+  '/saved': typeof SavedRoute
+  '/destination/$id': typeof DestinationIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRoute
+  '/experiences': typeof ExperiencesRoute
+  '/heritage': typeof HeritageRoute
+  '/map': typeof MapRoute
+  '/planner': typeof PlannerRoute
+  '/saved': typeof SavedRoute
+  '/destination/$id': typeof DestinationIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/discover': typeof DiscoverRoute
+  '/experiences': typeof ExperiencesRoute
+  '/heritage': typeof HeritageRoute
+  '/map': typeof MapRoute
+  '/planner': typeof PlannerRoute
+  '/saved': typeof SavedRoute
+  '/destination/$id': typeof DestinationIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/discover'
+    | '/experiences'
+    | '/heritage'
+    | '/map'
+    | '/planner'
+    | '/saved'
+    | '/destination/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/discover'
+    | '/experiences'
+    | '/heritage'
+    | '/map'
+    | '/planner'
+    | '/saved'
+    | '/destination/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/discover'
+    | '/experiences'
+    | '/heritage'
+    | '/map'
+    | '/planner'
+    | '/saved'
+    | '/destination/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  DiscoverRoute: typeof DiscoverRoute
+  ExperiencesRoute: typeof ExperiencesRoute
+  HeritageRoute: typeof HeritageRoute
+  MapRoute: typeof MapRoute
+  PlannerRoute: typeof PlannerRoute
+  SavedRoute: typeof SavedRoute
+  DestinationIdRoute: typeof DestinationIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/discover': {
+      id: '/discover'
+      path: '/discover'
+      fullPath: '/discover'
+      preLoaderRoute: typeof DiscoverRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/experiences': {
+      id: '/experiences'
+      path: '/experiences'
+      fullPath: '/experiences'
+      preLoaderRoute: typeof ExperiencesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/heritage': {
+      id: '/heritage'
+      path: '/heritage'
+      fullPath: '/heritage'
+      preLoaderRoute: typeof HeritageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/map': {
+      id: '/map'
+      path: '/map'
+      fullPath: '/map'
+      preLoaderRoute: typeof MapRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/planner': {
+      id: '/planner'
+      path: '/planner'
+      fullPath: '/planner'
+      preLoaderRoute: typeof PlannerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/saved': {
+      id: '/saved'
+      path: '/saved'
+      fullPath: '/saved'
+      preLoaderRoute: typeof SavedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/destination/$id': {
+      id: '/destination/$id'
+      path: '/destination/$id'
+      fullPath: '/destination/$id'
+      preLoaderRoute: typeof DestinationIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  DiscoverRoute: DiscoverRoute,
+  ExperiencesRoute: ExperiencesRoute,
+  HeritageRoute: HeritageRoute,
+  MapRoute: MapRoute,
+  PlannerRoute: PlannerRoute,
+  SavedRoute: SavedRoute,
+  DestinationIdRoute: DestinationIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
