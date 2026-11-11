@@ -8,27 +8,26 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
 // GitHub Pages serves this site from /hidden-gem-itinerary-compass/. Only apply that base
 // for the github-pages build so the Lovable preview and published site keep working at "/".
-const isGitHubPages = process.env.NITRO_PRESET === "github-pages";
+const isGitHubPages = process.env["NITRO_PRESET"] === "github-pages";
 const GITHUB_PAGES_BASE = "/hidden-gem-itinerary-compass/";
+
+// Give Nitro's page prerenderer the same base. Its default "/" start page would only hit a
+// redirect to the base, so crawl from the base itself instead.
+const githubPagesNitro = {
+  preset: "github-pages",
+  baseURL: GITHUB_PAGES_BASE,
+  hooks: {
+    "prerender:routes"(routes: Set<string>) {
+      if (routes.delete("/")) routes.add(GITHUB_PAGES_BASE);
+    },
+  },
+};
 
 export default defineConfig({
   vite: {
     base: isGitHubPages ? GITHUB_PAGES_BASE : "/",
   },
-  // Give Nitro's page prerenderer the same base. Its default "/" start page would only hit a
-  // redirect to the base, so crawl from the base itself instead.
-  ...(isGitHubPages
-    ? {
-        nitro: {
-          baseURL: GITHUB_PAGES_BASE,
-          hooks: {
-            "prerender:routes"(routes: Set<string>) {
-              if (routes.delete("/")) routes.add(GITHUB_PAGES_BASE);
-            },
-          },
-        },
-      }
-    : {}),
+  ...(isGitHubPages ? { nitro: githubPagesNitro } : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
