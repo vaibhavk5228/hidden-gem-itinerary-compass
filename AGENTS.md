@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+## Build
+- GitHub Pages base path and Nitro prerender settings in vite.config.ts apply only when NITRO_PRESET=github-pages, so the Lovable preview and published site stay served from "/".
