@@ -9,11 +9,14 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 // GitHub Pages serves this site from /hidden-gem-itinerary-compass/. Only apply that base
 // for the github-pages build so the Lovable preview and published site keep working at "/".
 const isGitHubPages = process.env.NITRO_PRESET === "github-pages";
+const GITHUB_PAGES_BASE = "/hidden-gem-itinerary-compass/";
 
 export default defineConfig({
   vite: {
-    base: isGitHubPages ? "/hidden-gem-itinerary-compass/" : "/",
+    base: isGitHubPages ? GITHUB_PAGES_BASE : "/",
   },
+  // Tell Nitro's prerenderer about the same base so it renders pages under it.
+  ...(isGitHubPages ? { nitro: { baseURL: GITHUB_PAGES_BASE } } : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
