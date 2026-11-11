@@ -15,8 +15,20 @@ export default defineConfig({
   vite: {
     base: isGitHubPages ? GITHUB_PAGES_BASE : "/",
   },
-  // Tell Nitro's prerenderer about the same base so it renders pages under it.
-  ...(isGitHubPages ? { nitro: { baseURL: GITHUB_PAGES_BASE } } : {}),
+  // Give Nitro's page prerenderer the same base. Its default "/" start page would only hit a
+  // redirect to the base, so crawl from the base itself instead.
+  ...(isGitHubPages
+    ? {
+        nitro: {
+          baseURL: GITHUB_PAGES_BASE,
+          hooks: {
+            "prerender:routes"(routes: Set<string>) {
+              if (routes.delete("/")) routes.add(GITHUB_PAGES_BASE);
+            },
+          },
+        },
+      }
+    : {}),
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
